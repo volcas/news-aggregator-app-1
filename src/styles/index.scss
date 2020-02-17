@@ -1,5 +1,166 @@
-$body-color: blue;
+* {
+  box-sizing: border-box;
+  
+  
+}
 
 body {
-  color: $body-color;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: black;
+  overflow-x:hidden;
+  
+  
+}
+ #main-title {
+     color: whitesmoke;
+     background-color: black;
+     margin-top: 20px;
+     margin-left: 520px;
+     display: inline-block;
+     border-top: 1px solid white;
+     border-left: 1px solid white;
+     border-right: 1px solid white;
+     border-bottom: 2px solid white;
+     padding: 10px;
+	 
+	 
+	 
+	 
+ }
+ 
+ .newsbtn{
+	 
+	 display:flex;
+	 position:absolute;
+	 margin-left:590px;
+	 
+	
+ }
+ 
+ #search{
+	 width:1250px;
+	 display:flex;
+	 position:absolute;
+	 margin-left:50px;
+	 margin-top:50px;
+	 border-top: none;
+     color: white;
+     border-left: none;
+     border-right: none;
+     padding: 20px;
+	 background-color: transparent;
+ }
+
+li{
+	list-style-type:none;
+}
+/* Float four columns side by side */
+.column {
+  float: left;
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  display:flex;
+  justify-content:center;
+  text-align: center;
+  margin-top:60px;
+}
+
+
+/* Style the counter cards */
+.card {
+  box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2);
+  width:250px; 
+  height:580px;
+  background-color: gray;
+  border-radius:5px;
+}
+
+
+.card:hover{
+	opacity:1;
+	background-color:red;
+	transition: .5s ease;
+	
+}
+.row::after {
+  
+  display: table;
+}
+
+
+
+
+.article-img{
+	width:200px;
+	height:250px;
+	margin-left:-40px;
+	margin-top:1px;
+	padding: 0.2em;
+	border-radius:8px;
+}
+
+.card .article-title{
+	
+	font-size:15px;
+	margin-left:-20px;
+	margin-right:20px;
+	color:white;
+	padding: 0.2em;
+	text-align: justify;
+	text-justify: auto;
+	
+}
+.card .article-description{
+	margin-left:-20px;
+	margin-right:20px;
+	font-size:10px;
+	color:white;
+	padding: 0.3em 0 0 0;
+	text-align: justify;
+	text-justify: auto;
+}
+
+.card .article-link{
+	
+	color:white;
+	margin: 0 auto;
+	font-size:10px;
+	padding: 0.4em 0 0.2em 0;
+	display: flex;
+	text-align: justify;
+    justify-content: space-between;
+	margin-left:-20px;
+	text-decoration:underline;
+}
+.article-link:hover{
+	cursor:pointer;
+}
+
+.card .article-author{
+	
+	margin: 0;
+    padding: 0.4em 0.1em 0.4em 0;
+    border: 0;
+    outline: 0;
+	float:none;
+	color:blue;
+	text-align: justify;
+    
+}
+
+
+/*Responsive code*/
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #main-title {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
 }

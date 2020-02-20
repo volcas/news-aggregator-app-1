@@ -1,4 +1,4 @@
-import "../styles/style.css";
+import "../style.css";
 
 const API_KEY = "fcf951aed5be4984ba5644d81df16a92";
 //const API_KEY = "93f249bb19a7431c9f730ba11c16fc9e";

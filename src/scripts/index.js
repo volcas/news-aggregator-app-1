@@ -1,77 +1,137 @@
 import "../styles/index.css";
 
-//const API_KEY = "fcf951aed5be4984ba5644d81df16a92";
+
 const API_KEY = "93f249bb19a7431c9f730ba11c16fc9e";
 
-const getElemById = id => document.getElementById(id);
-let articleContainerElem = getElemById("news-articles");
+function getNews() {
+    // alert('hello');
 
-const renderNews = news => {
-  if (news.articles.length) {
-    const { articles } = news;
-    console.log(articles);
+    const url = 'https://newsapi.org/v2/top-headlines?country=in&apiKey=' + apikey;
+    fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
 
-    let articleListElem = "";
+            // console.log(data.articles);
+            const length = data.articles.length;
+            var output = '';
 
-    articles.forEach(article => {
-      const { author, description, title, urlToImage, url } = article;
+            // console.log(length);
 
-      articleListElem += `
-		    <li class="article">
-		      <div class="article-img-wrap">
-            <img class="article-img" src="${urlToImage}" alt="${title}" />
-          </div>
+            for (var i = 0; i < length; i++) {
 
-		      <h2 class="article-title">${title}</h2>
+                var obj = data.articles;
+                // console.log(obj[i].title);
 
-		      <p class="article-description">${description ||
-            "Description not available"}</p>
+                var titles = obj[i].title;
+                var authors = obj[i].author;
+                var descriptions = obj[i].description;
+                var urls = obj[i].url;
+                var image = obj[i].urlToImage;
 
-		      <span class="article-author">- ${author ? author : "Anon"}</span>
+                // output += 'Title: ' + titles + '<br>'
+                //     + 'Author: ' + authors + '<br>'
+                //     + 'Description: ' + descriptions + '<br>'
+                //     + 'Reference: ' + urls + '<br>'
+                //     + 'Image: ' + image + '<hr>';
 
-          <a class="article-link" href="${url}" target="_blank" rel="noopener noreferrer"></a>
-		    </li>
-		  `;
-    });
+                //patch002 none != none -> style="transform: matrix()" , :hover manipulates parameters
 
-    articleContainerElem.innerHTML = articleListElem;
-  } else {
-    articleContainerElem.innerHTML =
-      '<li class="not-found">No article was found based on the search.</li>';
-  }
-};
+                output +='<li class="article">'+
+                    '<div class="card p-1" style="width: 15rem;display:none"><img src="'+image+'" class="article-img" alt="..."></div> '+ //patch005
+                    '<div class="card p-1" style="width: 15rem;"><img src="'+image+'" class="card-img-top article-img" alt="..."> '+
+                    
+                    '<div class="card-body">'+
+                    '<h2 class="article-title">'+titles.substring(0,70)+'</h2>'+
+                    '<p class="article-description">'+descriptions.substring(0,100)+'</p>'+
+                    '<span class="article-author">'+authors+'</span><br>'+
+                    '<a href="'+urls+'" class="article-link">know more</a>' +
+                    '</div></div></li> ';
 
-// Fetch news from API and render the articles
-const getNews = async (searchText = "") => {
-  articleContainerElem.innerHTML = '<li class="loading">Loading....</li>';
-  const url = searchText
-    ? `https://newsapi.org/v2/everything?q=${searchText}&apiKey=${API_KEY}`
-    : `https://newsapi.org/v2/top-headlines?country=in&apiKey=${API_KEY}`;
+                document.getElementById('news-articles').innerHTML = output;
+            }
 
-  const newsResponse = await fetch(url);
-  const news = await newsResponse.json();
+        })
+}
 
-  renderNews(news);
-};
+getNews();
 
-// Search news and render it
-const searchNews = async evt => {
-  if (event.which === 13 || event.keyCode === 13 || event.key === "Enter") {
-    getNews(evt.target.value);
-  }
-};
 
-// Initialize methods to fetch and render the news
-const init = () => {
-  const searchInput = getElemById("search");
+// document.getElementById('search').addEventListener('onkeypress',searchNews())
 
-  searchInput.addEventListener("keypress", searchNews);
+function searchNews() {
 
-  getNews();
-};
+    var query = document.getElementById('search').value;
 
-(function() {
-  articleContainerElem = getElemById("news-articles");
+    
 
-  init();
-})();
+    // alert('search' + '    ' + query);
+
+    //
+
+    // const url = 'http://newsapi.org/v2/everything?q='+'apple'+'&apiKey=6f1cacbf2bae46faa35d5a9db3005c04';
+    
+    const url = 'http://newsapi.org/v2/everything?q=' + query + '&apiKey=' + apikey;
+    
+    fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+
+        // console.log(data.articles);
+        const length = data.articles.length;
+        const results = data.totalResults;
+        var output = '';
+
+        // console.log(length);
+
+        // alert('totalresults: ' + data.totalResults);
+
+        if(results != 0)
+    {
+
+        for(var i=0; i<length; i++){
+
+            var obj = data.articles;
+            // console.log(obj[i].title);
+
+            var titles = obj[i].title;
+            var authors = obj[i].author;
+            var descriptions = obj[i].description;
+            var urls = obj[i].url;
+            var image = obj[i].urlToImage;
+
+            output +='<li class="article">'+
+                    '<div class="card p-1" style="width: 15rem;display:none"><img src="'+image+'" class="article-img" alt="..."></div> '+ //patch005
+                    '<div class="card p-2" style="width: 17rem;"><img src="'+image+'" class="card-img-top article-img" alt="..."> '+
+                    
+                    '<div class="card-body">'+
+                    '<h2 class="article-title">'+titles.substring(0,70)+'</h2>'+
+                    '<p class="article-description">'+descriptions.substring(0,100)+'</p>'+
+                    '<span class="article-author">'+authors+'</span><br>'+
+                    '<a href="'+urls+'" class="article-link">know more</a>'
+                    '</div></div></li> ';
+
+                    document.getElementById('news-articles').innerHTML = output;
+
+        }
+    }
+    else 
+    {
+        
+        document.getElementById('news-articles').innerHTML = '';
+
+        document.getElementById('notfound').innerHTML = 'No article was found based on the search.';
+    }
+
+    })
+}
+
+document.getElementById('search').addEventListener('keypress', function (e) {
+    if (e.keyCode === 13) {
+
+        var query = document.getElementById('search').value;
+
+        query=='' ? getNews() : searchNews();
+
+        // searchNews();
+    }
+}, false);

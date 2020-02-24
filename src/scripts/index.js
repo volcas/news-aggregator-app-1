@@ -3,7 +3,7 @@ import "../styles/index.css";
 const API_KEY = "93f249bb19a7431c9f730ba11c16fc9e";
 
 const getElemById = id => document.getElementById(id);
-let article_element = getElemById("news_articles");
+let article_element = getElemById("news-articles");
 
 const myNews = news => {
   if (news.articles.length) {
@@ -70,7 +70,7 @@ const init = () => {
 };
 
 (function() {
-  article_element = getElemById("news_articles");
+  article_element = getElemById("news-articles");
 
   init();
 })();
